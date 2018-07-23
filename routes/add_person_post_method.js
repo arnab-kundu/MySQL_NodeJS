@@ -28,10 +28,7 @@ router.post('/', function (request, response, next) {
         if (error) throw error;
         con.end();
         response.send(result);
-        //response.sendStatus();
     });
-
-    console.log(request.query);
-    //response.render('index', { title: 'Arnab' });
+    console.log(request.body);
 });
 module.exports = router;
