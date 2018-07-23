@@ -24,23 +24,42 @@ router.get('/', function (request, response, next) {
     //if (request.query.)
     if (request.query.lastname === undefined && request.query.firstname === undefined && request.query.age === undefined)
         var query = "SELECT * FROM persons";
-    else if (request.query.lastname != undefined && request.query.firstname != undefined &&
-        request.query.lastname != "" && request.query.firstname != "")
-        var query = "SELECT * FROM persons WHERE LastName LIKE '" + request.query.lastname + "%' AND "+ 
-        "FirstName LIKE '"+request.query.firstname+"%';";
+
+    else if (request.query.lastname != undefined && request.query.firstname != undefined && request.query.age != undefined &&
+        request.query.age != "" && !isNaN(request.query.age))
+        var query = "SELECT * FROM persons WHERE LastName LIKE '" + request.query.lastname + "%' AND " +
+            "FirstName LIKE '" + request.query.firstname + "%' AND age = " + request.query.age + ";";
+
+    else if (request.query.lastname != undefined && request.query.firstname != undefined)
+        var query = "SELECT * FROM persons WHERE LastName LIKE '" + request.query.lastname + "%' AND " +
+            "FirstName LIKE '" + request.query.firstname + "%';";
+
+    else if (request.query.lastname != undefined && request.query.age != undefined
+        && request.query.age != "" && !isNaN(request.query.age))
+        var query = "SELECT * FROM persons WHERE LastName LIKE '" + request.query.lastname + "%' AND " +
+            "age = " + request.query.age + ";";
+
+    else if (request.query.age != undefined && request.query.firstname != undefined &&
+        request.query.age != "" && !isNaN(request.query.age))
+        var query = "SELECT * FROM persons WHERE age = " + request.query.age + " AND " +
+            "FirstName LIKE '" + request.query.firstname + "%';";
     else if (request.query.lastname != undefined)
         var query = "SELECT * FROM persons WHERE LastName LIKE '" + request.query.lastname + "%';";
     else if (request.query.firstname != undefined)
         var query = "SELECT * FROM persons WHERE FirstName LIKE '" + request.query.firstname + "%';";
-    else if (request.query.age != undefined)
-        var query = "SELECT * FROM persons WHERE Age = '" + request.query.age + "');";
+    else if (request.query.age != undefined && request.query.age != "" && !isNaN(request.query.age))
+        var query = "SELECT * FROM persons WHERE Age = " + request.query.age + ";";
 
     console.log("DB QUERY:" + query);
-    con.query(query, function (error, result, fields) {
-        if (error) throw error;
-        con.end();
-        response.send(result);
-    });
+    if (query != "")
+        con.query(query, function (error, result, fields) {
+            if (error) throw error;
+            con.end();
+            response.send(result);
+        });
+    else {
+        response.send("Invalid Request");
+    }
 
 });
 module.exports = router;

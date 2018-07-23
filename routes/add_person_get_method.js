@@ -17,7 +17,7 @@ router.get('/', function (request, response, next) {
     });
 
     var query = "";
-    if (request.query.age === undefined)
+    if (request.query.age === undefined || isNaN(request.query.age))
         var query = "INSERT INTO persons (ID, lastname, firstname, age) VALUES (NULL,'" + request.query.lastname + "','" + request.query.firstname + "', 0);";
     else
         var query = "INSERT INTO persons (ID, lastname, firstname, age) VALUES (NULL,'" + request.query.lastname + "','" + request.query.firstname + "', " + request.query.age + ");";
