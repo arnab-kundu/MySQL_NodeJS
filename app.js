@@ -11,6 +11,7 @@ var addPersonGetRouter = require('./routes/add_person_get_method');
 var addPersonPostRouter = require('./routes/add_person_post_method');
 var counrtyRouter = require('./routes/countries');
 var currencyRouter = require('./routes/currency');
+var employeeRouter = require('./routes/employee');
 
 
 var app = express();
@@ -32,6 +33,7 @@ app.use('/addPerson', addPersonGetRouter);
 app.use('/addPersonPost', addPersonPostRouter);
 app.use('/country',counrtyRouter);
 app.use('/currency',currencyRouter);
+app.use('/employee',employeeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
