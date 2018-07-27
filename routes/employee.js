@@ -15,19 +15,20 @@ router.get('/', function (request, response, next) {
         password: 'password',
         database: 'employees'
     });
-    var sp = 'employee_with_title'
+    var sp = 'employee_with_title';
+    sp = 'get_employee_detalis';
     var querySP = "CALL " + sp + "(?)";
-    var params = [request.query.title];
-      console.log("params = ",params,request.query.title);
+    var params = [request.query.record_starting_index];
+    console.log("params = ", params, request.query.record_starting_index);
 
-    con.query(querySP, params ,function (error, result, fields) {
+    con.query(querySP, params, function (error, result, fields) {
         if (error) throw error;
         // console.log(result);
         con.end();
         response.send({
-            status:1,
-            message:"Data fetched",
-            data:result[0]
+            status: 1,
+            message: "Data fetched",
+            data: result[0]
         });
         //response.sendStatus();
     });
