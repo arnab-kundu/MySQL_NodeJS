@@ -12,17 +12,19 @@ router.get('/', function (request, response, next) {
     var con = mysql.createConnection({
         server: 'localhost',
         user: 'root',
-        password: 'password',
+        password: '',
         database: 'employees'
     });
-    var sp = 'employee_with_title'
+    var sp = 'employee_with_title';
+    sp = 'sp_employees';
+    sp='get_employee_detalis';
     var querySP = "CALL " + sp + "(?)";
-    var params = [request.query.title];
-      console.log("params = ",params,request.query.title);
+    var params = [request.query.record_starting_index];
+      console.log("params = ",params,request.query.record_starting_index);
 
     con.query(querySP, params ,function (error, result, fields) {
         if (error) throw error;
-        // console.log(result);
+        //console.log(result);
         con.end();
         response.send({
             status:1,
