@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
     //console.log("BODY:" + req.body);
     console.log("URL:" + req.url);
 
-    console.log("QUERY:" + req.query.CountryCode);
+    console.log("QUERY:" + req.query.countrycode);
     console.log("QUERY:" + req.query.englishname);
     console.log("QUERY:" + req.query.frenchname);
     console.log("QUERY:" + req.query.id);
@@ -22,8 +22,8 @@ router.get('/', function (req, res, next) {
     var query = "";
     if (req.url === "/")
         query = "SELECT * FROM country";
-    else if (req.query.CountryCode != undefined) {
-        query = "SELECT * FROM country WHERE CountryCode LIKE '" + req.query.CountryCode + "%'";
+    else if (req.query.countrycode != undefined) {
+        query = "SELECT * FROM country WHERE CountryCode LIKE '" + req.query.countrycode + "%'";
     } else if (req.query.englishname != undefined) {
         query = "SELECT * FROM country WHERE EnglishName LIKE '" + req.query.englishname + "%'";
     } else if (req.query.frenchname != undefined) {
