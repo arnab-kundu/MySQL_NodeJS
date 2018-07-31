@@ -74,6 +74,44 @@ DELIMITER ;
 
 
 
+sp CALL employees_detalis(10)
+=============================
+
+DELIMITER $$
+
+CREATE
+    /*[DEFINER = { user | CURRENT_USER }]*/
+    PROCEDURE `employees`.`employees_detalis`(IN index_no INT)
+    /*LANGUAGE SQL
+    | [NOT] DETERMINISTIC
+    | { CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA }
+    | SQL SECURITY { DEFINER | INVOKER }
+    | COMMENT 'string'*/
+	BEGIN
+		SELECT g.*, DATE_FORMAT(h.birth_date,'%Y-%m-%d') birth_date, h.first_name,h.last_name, h.gender, DATE_FORMAT(h.hire_date,'%Y-%m-%d') hire_date FROM(
+		SELECT e.*, f.salary FROM(
+		SELECT d.emp_no, d.title, GROUP_CONCAT(d.dept_no) dept_no, GROUP_CONCAT(d.grp_manager) managers, GROUP_CONCAT(d.dept_name) dept_name FROM(
+		SELECT c.*, departments.dept_name FROM(
+		SELECT b.*, j.grp_manager FROM(
+		SELECT a.*, `dept_emp`.dept_no FROM(
+		SELECT `employees`.emp_no, GROUP_CONCAT(`titles`.title SEPARATOR ", ") AS title FROM 
+		`employees` INNER JOIN `titles` ON `employees`.emp_no = `titles`.emp_no GROUP BY `employees`.emp_no LIMIT index_no, 10
+		) a INNER JOIN `dept_emp` ON a.emp_no = `dept_emp`.emp_no
+		) b INNER JOIN (
+					SELECT i.dept_no, GROUP_CONCAT(i.manager_name SEPARATOR ", ") grp_manager FROM(
+					SELECT dept_manager.emp_no, .dept_manager.dept_no, CONCAT(employees.first_name," ",employees.last_name) manager_name FROM `dept_manager` INNER JOIN `employees` ON `dept_manager`.emp_no = `employees`.emp_no
+					) i GROUP BY i.dept_no
+				) j ON b.dept_no = j.dept_no
+		) c INNER JOIN `departments` ON c.dept_no = `departments`.dept_no
+		) d GROUP BY d.emp_no
+		) e INNER JOIN (SELECT emp_no,MAX(salary) salary FROM `salaries` GROUP BY emp_no) f ON e.emp_no = f.emp_no
+		) g INNER JOIN `employees` h ON g.emp_no = h.emp_no;
+	END$$
+
+DELIMITER ;
+
+
+
 
 
 
