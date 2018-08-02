@@ -54,7 +54,7 @@ router.get('/', function (request, response, next) {
 
     //http://localhost:3000/employee?first_name=an
 
-
+    //console.log("For creating 500 error code"+request.query.first_name.length);
     if (request.query.first_name != undefined) {
 
         //console.log(request.query.first_name);
