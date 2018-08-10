@@ -26,21 +26,22 @@ router.get('/', function (req, res, next) {
                 data: err.massage
             });
         };
-        con.query("SELECT products.*, productlines.image FROM products INNER JOIN productlines ON `products`.productLine = `productlines`.productLine ORDER BY products.quantityInStock",
-            function (err, result, fields) {
-                if (err) {
-                    res.send({
-                        success: 0,
-                        massage: "Data fatched successfully",
-                        data: err.massage
-                    });
-                };
+        //var query = "SELECT products.*, productlines.image FROM products INNER JOIN productlines ON `products`.productLine = `productlines`.productLine ORDER BY products.quantityInStock";
+        var query = "SELECT * FROM products";
+        con.query(query, function (err, result, fields) {
+            if (err) {
                 res.send({
-                    success: 1,
+                    success: 0,
                     massage: "Data fatched successfully",
-                    data: result
+                    data: err.massage
                 });
+            };
+            res.send({
+                success: 1,
+                massage: "Data fatched successfully",
+                data: result
             });
+        });
     });
 });
 

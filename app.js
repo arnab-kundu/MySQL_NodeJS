@@ -14,6 +14,8 @@ var currencyRouter = require('./routes/currency');
 var employeeRouter = require('./routes/employee');
 var carsRouter = require('./routes/vehicle/cars');
 var add_new_vehicleRouter = require('./routes/vehicle/add_new_vehicle_1');
+var getProductLineRouter = require('./routes/vehicle/getProductLines')
+var setImageUrlRouter = require('./routes/vehicle/setImageUrl')
 
 
 var app = express();
@@ -33,19 +35,21 @@ app.use('/users', usersRouter);
 app.use('/person', fetchPersonRouter);
 app.use('/addPerson', addPersonGetRouter);
 app.use('/addPersonPost', addPersonPostRouter);
-app.use('/country',counrtyRouter);
-app.use('/currency',currencyRouter);
-app.use('/employee',employeeRouter);
-app.use('/cars',carsRouter);
-app.use('/add_new_vehicle',add_new_vehicleRouter);
+app.use('/country', counrtyRouter);
+app.use('/currency', currencyRouter);
+app.use('/employee', employeeRouter);
+app.use('/cars', carsRouter);
+app.use('/add_new_vehicle', add_new_vehicleRouter);
+app.use('/getProductLines', getProductLineRouter)
+app.use('/setImageUrl', setImageUrlRouter)
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
