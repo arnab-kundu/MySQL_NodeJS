@@ -13,7 +13,7 @@ var counrtyRouter = require('./routes/countries');
 var currencyRouter = require('./routes/currency');
 var employeeRouter = require('./routes/employee');
 var carsRouter = require('./routes/vehicle/cars');
-var add_new_vehicleRouter = require('./routes/vehicle/add_new_vehicle_1');
+var add_new_vehicleRouter = require('./routes/vehicle/add_new_vehicle');
 var getProductLineRouter = require('./routes/vehicle/getProductLines')
 var setImageUrlRouter = require('./routes/vehicle/setImageUrl')
 

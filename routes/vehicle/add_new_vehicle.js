@@ -39,7 +39,7 @@ router.get('/', function (req, res, next) {
             "'" + req.query.productDescription + "'," +
             "" + req.query.quantityInStock + "," +
             "" + req.query.buyPrice + "," +
-            "" + req.query.MSRP + ");";
+            "" + req.query.MSRP + ", NULL);";
 
         query0 = "SELECT * FROM products WHERE productCode = '" + req.query.productCode + "';";
 
