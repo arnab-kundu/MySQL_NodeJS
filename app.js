@@ -16,6 +16,8 @@ var carsRouter = require('./routes/vehicle/cars');
 var add_new_vehicleRouter = require('./routes/vehicle/add_new_vehicle');
 var getProductLineRouter = require('./routes/vehicle/getProductLines')
 var setImageUrlRouter = require('./routes/vehicle/setImageUrl')
+var registerUserRouter = require('./routes/mydb/register_user')
+var loginUserRouter = require('./routes/mydb/login_user')
 
 
 var app = express();
@@ -40,8 +42,10 @@ app.use('/currency', currencyRouter);
 app.use('/employee', employeeRouter);
 app.use('/cars', carsRouter);
 app.use('/add_new_vehicle', add_new_vehicleRouter);
-app.use('/getProductLines', getProductLineRouter)
-app.use('/setImageUrl', setImageUrlRouter)
+app.use('/getProductLines', getProductLineRouter);
+app.use('/setImageUrl', setImageUrlRouter);
+app.use('/register_user', registerUserRouter);
+app.use('/login_user', loginUserRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
