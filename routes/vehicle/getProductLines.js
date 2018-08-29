@@ -29,9 +29,15 @@ router.get('/', function (request, response, next) {
                 massage: error.message
             })
         } else {
+            var jsonArray = [];
+            for (var i = 0; i < result.length; i++) {
+                jsonObject = {}
+                jsonObject["productLine"] = result[i].productLine;
+                jsonArray.push(jsonObject);
+            }
             response.send({
                 status: 1,
-                productLines: result
+                productLines: jsonArray
             })
         }
     })
