@@ -16,6 +16,7 @@ var carsRouter = require('./routes/classicmodels/cars');
 var add_new_vehicleRouter = require('./routes/classicmodels/add_new_vehicle');
 var getProductLineRouter = require('./routes/classicmodels/getProductLines')
 var setImageUrlRouter = require('./routes/classicmodels/setImageUrl')
+var passwordRouter = require('./routes/password')
 var registerUserRouter = require('./routes/mydb/register_user')
 var loginUserRouter = require('./routes/mydb/login_user')
 var empLoginRouter = require('./routes/employees/login')
@@ -47,6 +48,7 @@ app.use('/cars', carsRouter);
 app.use('/add_new_vehicle', add_new_vehicleRouter);
 app.use('/getProductLines', getProductLineRouter);
 app.use('/setImageUrl', setImageUrlRouter);
+app.use('/password', passwordRouter);
 app.use('/register_user', registerUserRouter);
 app.use('/login_user', loginUserRouter);
 app.use('/classicmodels/login_as_employee/showAllCustomer', showAllCustomerRouter);
