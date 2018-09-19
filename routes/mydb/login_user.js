@@ -41,26 +41,34 @@ router.post('/', function (request, response, next) {
                         bcrypt.compare(request.body.password, result[0].Password, function (err, res) {
                             response.cookie("id", "arnab");
                             //response.status(200).end();
-                            if (res)
+                            if (res) {
+                                con.query("Insert INTO user_in_active_session values('" + request.body.email + "',NOW());", function (err, res) {
+                                    if (err)
+                                        console.log("msg " + err.message);
+                                    else
+                                        console.log("msg user added in user_in_active_session table");
+                                })
                                 response.send({
                                     success: res,
                                     message: "Login Successful"
                                 });
+                            }
                             else {
                                 response.send({
                                     success: res,
                                     message: "Wrong Password"
                                 });
                             }
+                            con.end();
                         });
                     } else {
                         response.send({
                             success: false,
                             message: "User does not exist"
                         });
+                        con.end();
                     }
                 }
-                con.end();
             });
         });
     });

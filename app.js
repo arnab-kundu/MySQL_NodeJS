@@ -12,12 +12,15 @@ var addPersonPostRouter = require('./routes/add_person_post_method');
 var counrtyRouter = require('./routes/countries');
 var currencyRouter = require('./routes/currency');
 var employeeRouter = require('./routes/employee');
-var carsRouter = require('./routes/vehicle/cars');
-var add_new_vehicleRouter = require('./routes/vehicle/add_new_vehicle');
-var getProductLineRouter = require('./routes/vehicle/getProductLines')
-var setImageUrlRouter = require('./routes/vehicle/setImageUrl')
+var carsRouter = require('./routes/classicmodels/cars');
+var add_new_vehicleRouter = require('./routes/classicmodels/add_new_vehicle');
+var getProductLineRouter = require('./routes/classicmodels/getProductLines')
+var setImageUrlRouter = require('./routes/classicmodels/setImageUrl')
 var registerUserRouter = require('./routes/mydb/register_user')
 var loginUserRouter = require('./routes/mydb/login_user')
+var empLoginRouter = require('./routes/employees/login')
+var showAllCustomerRouter = require('./routes/classicmodels/login_as_employees/showAllCustomer')
+var showSelectedCustomerOrderDetalisRouter = require('./routes/classicmodels/login_as_employees/showSelectedCustomerOrderDetalis')
 
 
 var app = express();
@@ -46,6 +49,10 @@ app.use('/getProductLines', getProductLineRouter);
 app.use('/setImageUrl', setImageUrlRouter);
 app.use('/register_user', registerUserRouter);
 app.use('/login_user', loginUserRouter);
+app.use('/classicmodels/login_as_employee/showAllCustomer', showAllCustomerRouter);
+app.use('/classicmodels/login_as_employee/showSelectedCustomerOrderDetalis', showSelectedCustomerOrderDetalisRouter);
+
+app.use('/employees/login', empLoginRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
