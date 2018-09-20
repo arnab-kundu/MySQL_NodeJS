@@ -21,7 +21,7 @@ var registerUserRouter = require('./routes/mydb/register_user')
 var loginUserRouter = require('./routes/mydb/login_user')
 var empLoginRouter = require('./routes/employees/login')
 var showAllCustomerRouter = require('./routes/classicmodels/login_as_employees/showAllCustomer')
-var showSelectedCustomerOrderDetalisRouter = require('./routes/classicmodels/login_as_employees/showSelectedCustomerOrderDetalis')
+var showSelectedCustomerOrderDetailsRouter = require('./routes/classicmodels/login_as_employees/showSelectedCustomerOrderDetails')
 
 
 var app = express();
@@ -52,7 +52,7 @@ app.use('/password', passwordRouter);
 app.use('/register_user', registerUserRouter);
 app.use('/login_user', loginUserRouter);
 app.use('/classicmodels/login_as_employee/showAllCustomer', showAllCustomerRouter);
-app.use('/classicmodels/login_as_employee/showSelectedCustomerOrderDetalis', showSelectedCustomerOrderDetalisRouter);
+app.use('/classicmodels/login_as_employee/showSelectedCustomerOrderDetails', showSelectedCustomerOrderDetailsRouter);
 
 app.use('/employees/login', empLoginRouter);
 
