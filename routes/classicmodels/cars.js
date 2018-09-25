@@ -21,27 +21,28 @@ router.get('/', function (req, res, next) {
     con.connect(function (err) {
         if (err) {
             res.send({
-                success: 1,
-                massage: "Data fatched successfully",
-                data: err.massage
+                success: 0,
+                error: "DB Error",
+                message: err.message
             });
-        };
-        //var query = "SELECT products.*, productlines.image FROM products INNER JOIN productlines ON `products`.productLine = `productlines`.productLine ORDER BY products.quantityInStock";
-        var query = "SELECT * FROM products";
-        con.query(query, function (err, result, fields) {
-            if (err) {
+        } else {
+            //var query = "SELECT products.*, productlines.image FROM products INNER JOIN productlines ON `products`.productLine = `productlines`.productLine ORDER BY products.quantityInStock";
+            var query = "SELECT * FROM products";
+            con.query(query, function (err, result, fields) {
+                if (err) {
+                    res.send({
+                        success: 0,
+                        massage: "Data fatched successfully",
+                        data: err.massage
+                    });
+                };
                 res.send({
-                    success: 0,
+                    success: 1,
                     massage: "Data fatched successfully",
-                    data: err.massage
+                    data: result
                 });
-            };
-            res.send({
-                success: 1,
-                massage: "Data fatched successfully",
-                data: result
             });
-        });
+        }
     });
 });
 

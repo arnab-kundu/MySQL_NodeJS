@@ -30,7 +30,7 @@ router.get('/', function (req, res, next) {
         query = "SELECT * FROM country WHERE FrenchName LIKE '" + req.query.frenchname + "%'";
     } else {
         //res.render('error', { message: '404' });
-        res.send(404,"Invalid Request");
+        res.send(404, "Invalid Request");
     }
     console.log(query);
     var con = mysql.createConnection({
@@ -42,9 +42,14 @@ router.get('/', function (req, res, next) {
 
 
     con.connect(function (err) {
-        if (err) throw err;
-        //con.query("SELECT * FROM countries where CountryCode LIKE 'A%'", function (err, result, fields) {
-        if (query != "")
+        if (err) {
+            res.send({
+                sussess: 0,
+                error: "DB error",
+                message: err.message
+            });
+        }
+        else if (query != "")
             con.query(query, function (err, result, fields) {
                 if (err) throw err;
                 //console.log(result);

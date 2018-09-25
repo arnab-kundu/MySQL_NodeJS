@@ -11,7 +11,7 @@ router.get('/', function (request, response, next) {
     //var datetime = new Date();
     //console.log(datetime);
 
-   
+
     var dt = dateTime.create();
     var formatted = dt.format('Y-m-d H:M:S');
     console.log(formatted);
@@ -38,15 +38,26 @@ router.get('/', function (request, response, next) {
         var params = [request.query.record_starting_index];
         console.log("params = ", params, request.query.record_starting_index);
 
-        con.query(querySP, params, function (error, result, fields) {
-            if (error) throw error;
-            // console.log(result);
-            con.end();
-            response.send({
-                status: 1,
-                message: "Data fetched",
-                data: result[0]
-            });
+        con.connect(function (err) {
+            if (err) {
+                response.send({
+                    success: 0,
+                    error: "DB Error",
+                    message: err.message
+                });
+            } else {
+
+                con.query(querySP, params, function (error, result, fields) {
+                    if (error) throw error;
+                    // console.log(result);
+                    con.end();
+                    response.send({
+                        status: 1,
+                        message: "Data fetched",
+                        data: result[0]
+                    });
+                });
+            }
         });
 
         //console.log(request.query);
@@ -68,15 +79,24 @@ router.get('/', function (request, response, next) {
             var sp = "filter_emp_by_name";
             var query = "CALL " + sp + "(?)";
             var params = [request.query.first_name];
-
-            con.query(query, params, function (error, result, fields) {
-                if (error) throw error;
-                con.end();
-                response.send({
-                    success: 1,
-                    massage: "Data fatched successfully",
-                    data: result[0]
-                });
+            con.connect(function (err) {
+                if (err) {
+                    response.send({
+                        success: 0,
+                        error: "DB Error",
+                        message: err.message
+                    });
+                } else {
+                    con.query(query, params, function (error, result, fields) {
+                        if (error) throw error;
+                        con.end();
+                        response.send({
+                            success: 1,
+                            massage: "Data fatched successfully",
+                            data: result[0]
+                        });
+                    });
+                }
             });
         }
     }
