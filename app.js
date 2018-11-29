@@ -22,6 +22,8 @@ var loginUserRouter = require('./routes/mydb/login_user')
 var empLoginRouter = require('./routes/employees/login')
 var showAllCustomerRouter = require('./routes/classicmodels/login_as_employees/showAllCustomer')
 var showSelectedCustomerOrderDetailsRouter = require('./routes/classicmodels/login_as_employees/showSelectedCustomerOrderDetails')
+var gatEmployeeDepartmentsRouter = require('./routes/employeesDB/get_employee_departments')
+var filterEmployeeByDepartMentRouter = require('./routes/employeesDB/filter_employees_by_department')
 
 
 var app = express();
@@ -53,6 +55,8 @@ app.use('/register_user', registerUserRouter);
 app.use('/login_user', loginUserRouter);
 app.use('/classicmodels/login_as_employee/showAllCustomer', showAllCustomerRouter);
 app.use('/classicmodels/login_as_employee/showSelectedCustomerOrderDetails', showSelectedCustomerOrderDetailsRouter);
+app.use('/employeesDB/get_employee_departments',gatEmployeeDepartmentsRouter)
+app.use('/employeesDB/filter_employees_by_department',filterEmployeeByDepartMentRouter)
 
 app.use('/employees/login', empLoginRouter);
 
