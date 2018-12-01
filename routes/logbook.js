@@ -4,6 +4,14 @@ const router = express.Router();
 
 //http://localhost:3000/logbook
 
+/* BODY
+{
+ "DeviceName":"MI",
+ "IP_Address":"192.168.1.2"
+ "MacAddress":"1e:3d:5f:c7:9b:3f" 
+}
+*/
+
 router.post('/', (req, res) => {
     var con = mysql.createConnection({
         host: "localhost",
