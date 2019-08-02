@@ -21,14 +21,18 @@ router.post('/', (req, res) => {
     })
 
     con.connect()
+    var createTableQuery = "CREATE TABLE IF NOT EXISTS `mydb`.`Logbook` (`DeviceName` VARCHAR(20), `IP_Address` VARCHAR(15), `MacAddress` VARCHAR(17), `Time_Stamp` VARCHAR(100));"
     var query = "INSERT INTO `logbook` VALUES(" +
         "'" + req.body.DeviceName + "'," +
         "'" + req.body.IP_Address + "'," +
         "'" + req.body.MacAddress + "'," +
         "CONCAT(CURRENT_DATE(), ' ', CURRENT_TIME())" +
         ")"
-    con.query(query, function (err, result) {
-        res.send("ADDED LOGS IN LOGBOOK");
+    con.query(createTableQuery, function (err, result) {
+        if (err) console.log("msg", err.message)
+        con.query(query, function (err, result) {
+            res.send("ADDED LOGS IN LOGBOOK");
+        })
     })
 });
 
