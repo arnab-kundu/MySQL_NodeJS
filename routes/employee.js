@@ -35,6 +35,7 @@ router.get('/', function (request, response, next) {
         sp = 'get_employee_detalis_one';
         sp = 'employees_detalis';
         var querySP = "CALL " + sp + "(?)";
+        var query = "SELECT * FROM employees WHERE 1=1 limit 100";
         var params = [request.query.record_starting_index];
         console.log("params = ", params, request.query.record_starting_index);
 
@@ -47,14 +48,14 @@ router.get('/', function (request, response, next) {
                 });
             } else {
 
-                con.query(querySP, params, function (error, result, fields) {
+                con.query(query, params, function (error, result, fields) {
                     if (error) throw error;
                     // console.log(result);
                     con.end();
                     response.send({
                         status: 1,
                         message: "Data fetched",
-                        data: result[0]
+                        data: result
                     });
                 });
             }
@@ -77,7 +78,8 @@ router.get('/', function (request, response, next) {
         } else {
 
             var sp = "filter_emp_by_name";
-            var query = "CALL " + sp + "(?)";
+            //var query = "CALL " + sp + "(?)";
+            var query = "Select * From salaries where emp_no = (SELECT emp_no FROM employees.employees where first_name = ? limit 1);";
             var params = [request.query.first_name];
             con.connect(function (err) {
                 if (err) {
@@ -90,6 +92,7 @@ router.get('/', function (request, response, next) {
                     con.query(query, params, function (error, result, fields) {
                         if (error) throw error;
                         con.end();
+                        console.log(result[0]);
                         response.send({
                             success: 1,
                             massage: "Data fatched successfully",

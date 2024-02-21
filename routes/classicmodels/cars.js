@@ -4,6 +4,7 @@ var dateTime = require('node-datetime');
 
 var router = express.Router();
 
+//http://localhost:3000/cars
 
 router.get('/', function (req, res, next) {
 
@@ -26,21 +27,25 @@ router.get('/', function (req, res, next) {
                 message: err.message
             });
         } else {
-            //var query = "SELECT products.*, productlines.image FROM products INNER JOIN productlines ON `products`.productLine = `productlines`.productLine ORDER BY products.quantityInStock";
-            var query = "SELECT * FROM products";
+            var query = "SELECT products.*, productlines.htmlDescription as image FROM products INNER JOIN productlines ON `products`.productLine = `productlines`.productLine ORDER BY products.quantityInStock";
+            //var query = "SELECT * FROM products";
             con.query(query, function (err, result, fields) {
                 if (err) {
-                    res.send({
-                        success: 0,
-                        massage: "Data fatched successfully",
-                        data: err.massage
-                    });
+                    res
+                        .status(400)
+                        .send({
+                            success: 0,
+                            massage: "Invalid request",
+                            data: err.massage
+                        });
                 };
-                res.send({
-                    success: 1,
-                    massage: "Data fatched successfully",
-                    data: result
-                });
+                res
+                    .status(200)
+                    .send({
+                        success: 1,
+                        massage: "Data fatched successfully",
+                        data: result
+                    });
             });
         }
     });

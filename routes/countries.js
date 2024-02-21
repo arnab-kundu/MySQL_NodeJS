@@ -4,6 +4,7 @@ var mysql = require('mysql');
 var router = express.Router();
 
 /* GET users listing. */
+//http://localhost:3000/country
 router.get('/', function (req, res, next) {
 
 
